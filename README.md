@@ -31,28 +31,28 @@ Also required: [Flathub setup](https://flatpak.org/setup/)
 ## Instructions
 
 
-Get Flutter project dependencies
+Get Flutter project dependencies:
 
 ```
 flutter pub get
 ```
 
 
-Build linux version
+Build linux version:
 
 ```
 flutter build linux
 ```
 
 
-Compress linux build
+Compress linux build:
 
 ```
 tar -C build/linux/x64/release/bundle -cvf FlutterApp-Linux-Portable.tar.gz .
 ```
 
 
-Instruct `flatpak-builder` to use the manifest to do a flatpak build
+Instruct `flatpak-builder` to use the manifest to do a flatpak build:
 
 ```
 flatpak-builder --force-clean build-dir com.example.FlutterApp.json
