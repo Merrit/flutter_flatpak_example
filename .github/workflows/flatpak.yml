@@ -66,4 +66,5 @@ jobs:
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v2
         with:
+          name: Flatpak artifact
           path: FlutterApp.flatpak
