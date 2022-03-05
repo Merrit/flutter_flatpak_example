@@ -12,9 +12,6 @@ jobs:
   build-flatpak:
     name: Build .flatpak artifact
     runs-on: ubuntu-latest
-    container:
-      image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
-      options: --privileged
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -38,13 +35,31 @@ jobs:
       - name: Compress Flutter build
         run: tar -C build/linux/x64/release/bundle -cvf FlutterApp-Linux-Portable.tar.gz .
 
+      - name: Upload app archive for next steps
+        uses: actions/upload-artifact@v2
+        with:
+          name: FlutterApp-Archive
+          path: FlutterApp-Linux-Portable.tar.gz
+
+  flatpak:
+    name: "Flatpak"
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
+      options: --privileged
+    steps:
+      - name: Download app archive
+        uses: actions/download-artifact@v3
+        with:
+          name: FlutterApp-Archive
+
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
         with:
           bundle: FlutterApp.flatpak
           manifest-path: com.example.FlutterApp.json
 
-      - name: Upload artifacts to workflow
+      - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v2
         with:
           path: FlutterApp.flatpak
