@@ -30,6 +30,17 @@ Also required: [Flathub setup](https://flatpak.org/setup/)
 
 ## Instructions
 
+> Note: Building a flatpak should be done in a predictable environment or it may
+> fail.
+> 
+> There is a [GitHub
+> action](https://github.com/bilelmoussaoui/flatpak-github-actions) for this
+> purpose, which is demonstrated in this repo. This action's page also lists the
+> docker containers it uses.
+> 
+> If you fork this example repo you can run the [example workflow](https://github.com/Merrit/flutter_flatpak_example/blob/main/.github/workflows/flatpak.yml), and
+> install the `.flatpak` file it generates with `flatpak install <path-to-.flatpak>`.
+
 
 Get Flutter project dependencies:
 
