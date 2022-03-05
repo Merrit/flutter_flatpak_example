@@ -49,6 +49,9 @@ jobs:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
       options: --privileged
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Download app archive
         uses: actions/download-artifact@v3
         with:
