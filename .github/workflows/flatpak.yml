@@ -9,8 +9,8 @@ env:
   project-id: codes.merritt.FeelingFinder
 
 jobs:
-  build-flatpak:
-    name: Build .flatpak artifact
+  build-flutter-app:
+    name: Build and compressed Flutter app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -41,8 +41,9 @@ jobs:
           name: FlutterApp-Archive
           path: FlutterApp-Linux-Portable.tar.gz
 
-  flatpak:
-    name: "Flatpak"
+  build-flatpak:
+    name: Build flatpak
+    needs: build-flutter-app
     runs-on: ubuntu-latest
     container:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
