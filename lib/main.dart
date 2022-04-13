@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flatpak_example/flatpak.dart';
 
-void main() {
+Future<void> main() async {
+  final themeMode = await Flatpak().themeMode();
+  print('final themeMode: $themeMode');
+
   runApp(const MyApp());
 }
 
