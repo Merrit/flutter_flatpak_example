@@ -33,7 +33,7 @@ jobs:
           flutter build linux
 
       - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -cvf FlutterApp-Linux-Portable.tar.gz .
+        run: tar -C build/linux/x64/release/bundle -acvf FlutterApp-Linux-Portable.tar.gz .
 
       - name: Upload app archive for next steps
         uses: actions/upload-artifact@v2
