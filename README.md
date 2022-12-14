@@ -59,7 +59,7 @@ flutter build linux
 Compress linux build:
 
 ```
-tar -C build/linux/x64/release/bundle -cvf FlutterApp-Linux-Portable.tar.gz .
+tar -C build/linux/x64/release/bundle -acvf FlutterApp-Linux-Portable.tar.gz .
 ```
 
 
