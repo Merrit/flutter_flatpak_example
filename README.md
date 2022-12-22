@@ -69,6 +69,14 @@ Instruct `flatpak-builder` to use the manifest to do a flatpak build:
 flatpak-builder --force-clean build-dir com.example.FlutterApp.json
 ```
 
+_Optional:_
+
+To build and immediately install the flatpak it produces add `--user --install` to the build command, for example:
+
+```
+flatpak-builder --force-clean build-dir com.example.FlutterApp.json --user --install
+```
+
 ## Publish to app store
 
 When this succeeds you can proceed to [submit to an app store like Flathub](https://github.com/flathub/flathub/wiki/App-Submission).
