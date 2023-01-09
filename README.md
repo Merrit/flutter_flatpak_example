@@ -77,6 +77,19 @@ To build and immediately install the flatpak it produces add `--user --install` 
 flatpak-builder --force-clean build-dir com.example.FlutterApp.json --user --install
 ```
 
+or to create a `.flatpak` file that can later be installed on any system:
+
+```
+flatpak-builder --force-clean build-dir com.example.FlutterApp.json --repo=repo
+flatpak build-bundle repo com.example.FlutterApp.flatpak com.example.FlutterApp
+```
+
+Will generate `com.example.FlutterApp.flatpak`, which can be installed on any system with Flatpak support:
+
+```
+flatpak install com.example.FlutterApp.flatpak
+```
+
 ## Publish to app store
 
 When this succeeds you can proceed to [submit to an app store like Flathub](https://github.com/flathub/flathub/wiki/App-Submission).
