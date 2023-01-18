@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Flutter dependencies
         run: |
@@ -29,11 +29,11 @@ jobs:
         run: |
           ./build-flutter-app.sh
 
-      - name: Upload app archive for next steps
-        uses: actions/upload-artifact@v2
+      - name: Upload app archive to workflow
+        uses: actions/upload-artifact@v3
         with:
           name: FlutterApp-Archive
-          path: FlutterApp-Linux-Portable.tar.gz
+          path: counter_app/FlutterApp-Linux-Portable.tar.gz
 
   build-flatpak:
     name: Build flatpak
@@ -43,22 +43,20 @@ jobs:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
       options: --privileged
     steps:
+      - name: Move into flatpak dir
+        run: cd counter_app/
+
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Download app archive
-        uses: actions/download-artifact@v3
-        with:
-          name: FlutterApp-Archive
 
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
         with:
           bundle: FlutterApp.flatpak
-          manifest-path: com.example.FlutterApp.json
+          manifest-path: com.example.FlutterApp.yml
 
       - name: Upload .flatpak artifact to workflow
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Flatpak artifact
           path: FlutterApp.flatpak
