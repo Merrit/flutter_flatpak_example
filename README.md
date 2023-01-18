@@ -50,13 +50,28 @@ through Docker
 
 
 ### Manual Requirements
- 
-> - flatpak
-> - flatpak-builder
-> 
-> On ubuntu:
-> 
-> > sudo apt install flatpak flatpak-builder
+
+Install flatpak and flatpak-builder
+
+On ubuntu:
+
+```bash
+sudo apt install flatpak flatpak-builder
+```
+
+Add the FlatHub repo:
+
+```bash
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+
+Install flatpak build dependencies:
+
+```bash
+flatpak install -y org.freedesktop.Sdk/x86_64/22.08
+flatpak install -y org.freedesktop.Platform/x86_64/22.08
+flatpak install -y flathub org.freedesktop.appstream-glib
+```
 
 
 ## Instructions
