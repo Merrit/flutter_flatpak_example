@@ -1,3 +1,11 @@
+- [Flutter Flatpak Example](#flutter-flatpak-example)
+  - [Requirements](#requirements)
+    - [VSCode dev container](#vscode-dev-container)
+    - [GitHub actions](#github-actions)
+    - [Manual Requirements](#manual-requirements)
+  - [Instructions](#instructions)
+
+
 # Flutter Flatpak Example
 
 
@@ -6,33 +14,32 @@ on Linux, using the default counter example app.
 
 [Flatpak documentation](https://docs.flatpak.org/en/latest/index.html)
 
-The necessary configuration files are in the root of the repository for ease of demonstration:
-
-- `com.example.FlutterApp.desktop` -- desktop menu / icon integration
-- `icon.svg` -- app's icon
-- `com.example.FlutterApp.json` -- Flatpak manifest, instructions on how to build
-  / assemble the flatpak
-- `com.example.FlutterApp.metainfo.xml` -- AppStream metadata file that contains
-  the information about the app that would be presented on an app store like Flathub
 
 
 ## Requirements
 
-- flatpak
-- flatpak-builder
-
-On ubuntu:
-
-> sudo apt install flatpak flatpak-builder
-
-Also required: [Flathub setup](https://flatpak.org/setup/)
-
-
-## Instructions
-
 > Note: Building a flatpak should be done in a predictable environment or it may
 > fail.
-> 
+
+[Set up Flathub](https://flatpak.org/setup/), and choose one:
+
+### VSCode dev container
+
+Use the VSCode dev container provided in this repo that will run everything
+through Docker
+
+1. Install the [Dev
+   Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+   extension
+   
+2. Open this directory in VSCode.
+
+3. Accept the prompt to re-open in the dev container, or from the Command
+   Palette search for `Reopen in Container`
+
+
+### GitHub actions
+
 > There is a [GitHub
 > action](https://github.com/bilelmoussaoui/flatpak-github-actions) for this
 > purpose, which is demonstrated in this repo. This action's page also lists the
@@ -42,54 +49,24 @@ Also required: [Flathub setup](https://flatpak.org/setup/)
 > install the `.flatpak` file it generates with `flatpak install <path-to-.flatpak>`.
 
 
-Get Flutter project dependencies:
-
-```
-flutter pub get
-```
-
-
-Build linux version:
-
-```
-flutter build linux
-```
+### Manual Requirements
+ 
+> - flatpak
+> - flatpak-builder
+> 
+> On ubuntu:
+> 
+> > sudo apt install flatpak flatpak-builder
 
 
-Compress linux build:
+## Instructions
 
-```
-tar -C build/linux/x64/release/bundle -acvf FlutterApp-Linux-Portable.tar.gz .
-```
+We have two directories that each represent what would be separate git
+repositories for a real project:
 
+`counter_app` is the Flutter app, view the README there for info on
+configuration and building.
 
-Instruct `flatpak-builder` to use the manifest to do a flatpak build:
-
-```
-flatpak-builder --force-clean build-dir com.example.FlutterApp.json
-```
-
-_Optional:_
-
-To build and immediately install the flatpak it produces add `--user --install` to the build command, for example:
-
-```
-flatpak-builder --force-clean build-dir com.example.FlutterApp.json --user --install
-```
-
-or to create a `.flatpak` file that can later be installed on any system:
-
-```
-flatpak-builder --force-clean build-dir com.example.FlutterApp.json --repo=repo
-flatpak build-bundle repo com.example.FlutterApp.flatpak com.example.FlutterApp
-```
-
-Will generate `com.example.FlutterApp.flatpak`, which can be installed on any system with Flatpak support:
-
-```
-flatpak install com.example.FlutterApp.flatpak
-```
-
-## Publish to app store
-
-When this succeeds you can proceed to [submit to an app store like Flathub](https://github.com/flathub/flathub/wiki/App-Submission).
+`flathub_repo` is separate from the Flutter app and is where the Flatpak is
+assembled, view the README there for info on configuration, building, and
+publishing of the flatpak after building the `counter_app`.

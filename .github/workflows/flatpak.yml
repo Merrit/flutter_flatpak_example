@@ -11,7 +11,7 @@ env:
 jobs:
   build-flutter-app:
     name: Build and compressed Flutter app
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,17 +23,11 @@ jobs:
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
-        with:
-          channel: beta
 
       - name: Build Flutter linux version
+        working-directory: ${{ github.workspace }}/counter_app
         run: |
-          flutter config --enable-linux-desktop
-          flutter pub get
-          flutter build linux
-
-      - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -acvf FlutterApp-Linux-Portable.tar.gz .
+          ./build-flutter-app.sh
 
       - name: Upload app archive for next steps
         uses: actions/upload-artifact@v2
@@ -46,11 +40,11 @@ jobs:
     needs: build-flutter-app
     runs-on: ubuntu-latest
     container:
-      image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
       options: --privileged
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download app archive
         uses: actions/download-artifact@v3
