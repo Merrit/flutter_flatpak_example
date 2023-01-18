@@ -59,7 +59,7 @@ jobs:
         run: tree
 
       - name: Build .flatpak
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
         with:
           bundle: FlutterApp.flatpak
           manifest-path: com.example.FlutterApp.yml
