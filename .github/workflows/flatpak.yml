@@ -11,10 +11,10 @@ env:
 jobs:
   build-flutter-app:
     name: Build and compressed Flutter app
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Flutter dependencies
         run: |
@@ -23,48 +23,37 @@ jobs:
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
-        with:
-          channel: beta
 
       - name: Build Flutter linux version
+        working-directory: ${{ github.workspace }}/counter_app
         run: |
-          flutter config --enable-linux-desktop
-          flutter pub get
-          flutter build linux
+          ./build-flutter-app.sh
 
-      - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -acvf FlutterApp-Linux-Portable.tar.gz .
-
-      - name: Upload app archive for next steps
-        uses: actions/upload-artifact@v2
+      - name: Upload app archive to workflow
+        uses: actions/upload-artifact@v3
         with:
           name: FlutterApp-Archive
-          path: FlutterApp-Linux-Portable.tar.gz
+          path: counter_app/FlutterApp-Linux-Portable.tar.gz
 
   build-flatpak:
     name: Build flatpak
     needs: build-flutter-app
     runs-on: ubuntu-latest
     container:
-      image: bilelmoussaoui/flatpak-github-actions:freedesktop-21.08
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
       options: --privileged
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Download app archive
-        uses: actions/download-artifact@v3
-        with:
-          name: FlutterApp-Archive
+        uses: actions/checkout@v3
 
       - name: Build .flatpak
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
         with:
           bundle: FlutterApp.flatpak
-          manifest-path: com.example.FlutterApp.json
+          manifest-path: flathub_repo/com.example.FlutterApp.yml
 
       - name: Upload .flatpak artifact to workflow
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Flatpak artifact
           path: FlutterApp.flatpak
