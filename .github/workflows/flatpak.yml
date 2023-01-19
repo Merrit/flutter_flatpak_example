@@ -47,7 +47,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: debug directory structure
-        run: tree
+        run: find . | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
 
       - name: Move into flatpak dir
         run: cd flathub_repo/
