@@ -46,17 +46,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: debug directory structure
-        run: find . | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
-
-      - name: Move into flatpak dir
-        run: cd flathub_repo/
-
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
         with:
           bundle: FlutterApp.flatpak
-          manifest-path: com.example.FlutterApp.yml
+          manifest-path: flathub_repo/com.example.FlutterApp.yml
 
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v3
