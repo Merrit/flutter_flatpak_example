@@ -43,29 +43,20 @@ jobs:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
       options: --privileged
     steps:
-      - name: Install tree
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y tree
-          tree
-
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: debug directory structure
+        run: tree
+
       - name: Move into flatpak dir
         run: cd flathub_repo/
-
-      - name: debug dir
-        run: tree
 
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
         with:
           bundle: FlutterApp.flatpak
           manifest-path: com.example.FlutterApp.yml
-
-      - name: check flatpak was built
-        run: tree
 
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v3
