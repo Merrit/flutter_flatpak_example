@@ -79,9 +79,9 @@ flatpak install -y flathub org.freedesktop.appstream-glib
 We have two directories that each represent what would be separate git
 repositories for a real project:
 
-`counter_app` is the Flutter app, view the README there for info on
+[counter_app](counter_app/) is the Flutter app, view the README there for info on
 configuration and building.
 
-`flathub_repo` is separate from the Flutter app and is where the Flatpak is
+[flathub_repo](flathub_repo/) is separate from the Flutter app and is where the Flatpak is
 assembled, view the README there for info on configuration, building, and
 publishing of the flatpak after building the `counter_app`.
