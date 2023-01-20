@@ -32,7 +32,7 @@ ln -s /app/$projectName/$executableName /app/bin/$executableName
 # Install the icon.
 iconDir=/app/share/icons/hicolor/scalable/apps
 mkdir -p $iconDir
-cp -r assets/icons/com.example.FlutterApp.svg $iconDir/
+cp -r assets/icons/$projectId.svg $iconDir/
 
 # Install the desktop file.
 desktopFileDir=/app/share/applications
